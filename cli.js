@@ -30,6 +30,7 @@ if (args.n) {
 } else if (args.s) {
     latitude = -args.s; 
 } else { 
+    console.log("Latitude must be in range");
     process.exit(0); 
 }
 
@@ -38,6 +39,7 @@ if (args.w) {
 } else if (args.e) { 
     longitude = args.e; 
 } else {
+    console.log("Longitude must be in range");
     process.exit(0);
 }
 
