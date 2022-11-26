@@ -16,9 +16,30 @@ if (args.h) {
     process.exit(0);
 }
 
-let timezone = args.z || moment.tz.guess(); 
-let latitude = args.n || -args.s;
-let longitude = -args.w || args.e; 
+let timezone = null; 
+let latitude = 0; 
+let longitude = 0; 
+if (args.z) { 
+    timezone = args.z; 
+} else { 
+    timezone = moment.tz.guess(); 
+}
+
+if (args.n) {
+    latitude = args.n; 
+} else if (args.s) {
+    latitude = -args.s; 
+} else { 
+    process.exit(0); 
+}
+
+if (args.w) { 
+    longitude = -args.w; 
+} else if (args.e) { 
+    longitude = args.e; 
+} else {
+    process.exit(0);
+}
 
 const response = await fetch ('https://api.open-meteo.com/v1/forecast?latitude=' + latitude + '&longitude=' + longitude + '&hourly=temperature_2m&daily=precipitation_hours&current_weather=true&timezone=' + timezone);
 const data = await response.json(); 
